@@ -5,33 +5,53 @@ using UnityEngine;
 
 public class Rocket : MonoBehaviour
 {
+    [SerializeField] float rcsThrust = 100f;
+    [SerializeField] float mainThrust = 100f;
     Rigidbody rigidBody;
+    AudioSource audioSource; 
+
     // Start is called before the first frame update
     void Start()
     {
         rigidBody = GetComponent<Rigidbody>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        ProcessInput();
+        Thrust();
+        Rotate();
     }
 
-    private void ProcessInput()
+    private void Rotate()
     {
-        if(Input.GetKey(KeyCode.Space))
+        rigidBody.freezeRotation = true; // take manual control of the rotation
+        float rotationThisFrame = rcsThrust * Time.deltaTime; 
+
+        if (Input.GetKey(KeyCode.A))
         {
-            rigidBody.AddRelativeForce(Vector3.up);
+            transform.Rotate(-Vector3.forward * rotationThisFrame);
         }
-        
-        if(Input.GetKey(KeyCode.A))
+        else if (Input.GetKey(KeyCode.D))
         {
-            print("rotate left");
+            transform.Rotate(Vector3.forward * rotationThisFrame);
         }
-        else if(Input.GetKey(KeyCode.D))
+
+        rigidBody.freezeRotation = false; // resume physics control of rotation
+    }
+
+    private void Thrust()
+    {
+        if (Input.GetKey(KeyCode.Space))
         {
-            print("rotate right");
+            rigidBody.AddRelativeForce(Vector3.up * mainThrust);
+            if (!audioSource.isPlaying)                 //So it doesn't layer
+                audioSource.Play();
+        }
+        else
+        {
+            audioSource.Stop();
         }
     }
 }
