@@ -5,8 +5,12 @@ public class Rocket : MonoBehaviour
 {
     [SerializeField] float rcsThrust = 100f;
     [SerializeField] float mainThrust = 100f;
+
     Rigidbody rigidBody;
     AudioSource audioSource; 
+
+    enum State {Alive, Dying, Transcending };
+    State state = State.Alive;
 
     // Start is called before the first frame update
     void Start()
@@ -18,30 +22,48 @@ public class Rocket : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // todo somewhere stop sound on death
+        if (state == State.Alive)
+        {
         Thrust();
         Rotate();
+        } 
     }
 
     void OnCollisionEnter(Collision collision)
     {
+        if (state != State.Alive)
+        {
+            return;
+        }
         switch (collision.gameObject.tag)
         {
             case "Friendly":
-                 // do nothing
-                print("OK"); //todo remove            
+                 // do nothing         
                 break;
             case "Finish":
-                print("hit finish");
-                SceneManager.LoadScene(1);
+                state = State.Transcending;
+                Invoke("LoadNextScene",1f); // paramaterise time
                 break;
             default:
-                print("dead");
-                SceneManager.LoadScene(0);
+                print("hit something deadly");
+                state = State.Dying;
+                Invoke("permadeath",1f); // paramaterise time
                 break;
         }   
     }
+    void LoadNextScene()
+    {
+        SceneManager.LoadScene(1); //Todo allow for more than 2 levels
+    }
 
-    private void Rotate()
+    void permadeath()
+    {
+        
+        SceneManager.LoadScene(0);
+    }
+
+    void Rotate()
     {
         rigidBody.freezeRotation = true; // take manual control of the rotation
         float rotationThisFrame = rcsThrust * Time.deltaTime; 
@@ -58,7 +80,7 @@ public class Rocket : MonoBehaviour
         rigidBody.freezeRotation = false; // resume physics control of rotation
     }
 
-    private void Thrust()
+    void Thrust()
     {
         if (Input.GetKey(KeyCode.Space))
         {
