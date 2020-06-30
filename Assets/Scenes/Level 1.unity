@@ -122,12 +122,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!198 &119444066 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 198204745950021251, guid: f25e04a62ac3100449057563d49125df,
-    type: 3}
-  m_PrefabInstance: {fileID: 1512058716}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &154149117 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7973398037859209690, guid: b9ff9f4443f059640b7fe54c17d8017d,
@@ -812,16 +806,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5071028474527400075, guid: f25e04a62ac3100449057563d49125df,
-        type: 3}
-      propertyPath: mainThrust
-      value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 5071028474527400075, guid: f25e04a62ac3100449057563d49125df,
-        type: 3}
-      propertyPath: deathParticles
-      value: 
-      objectReference: {fileID: 119444066}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f25e04a62ac3100449057563d49125df, type: 3}
 --- !u!1001 &1947047153

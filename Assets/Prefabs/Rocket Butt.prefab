@@ -148,13 +148,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rcsThrust: 250
-  mainThrust: 16
+  mainThrust: 14
   mainEngine: {fileID: 8300000, guid: 9e2d4cf239d041a43bed87850cc59853, type: 3}
   death: {fileID: 8300000, guid: 750407ad66364034e97187cff9facb94, type: 3}
   objectiveReached: {fileID: 8300000, guid: db21acd2b7f81c84e927f1b973ad95b5, type: 3}
   mainEngineParticles: {fileID: 198100718846972670}
-  deathParticles: {fileID: 198204746014789312, guid: ab79a37535b979f48b6de56e3a0a5cb0,
-    type: 3}
+  deathParticles: {fileID: 198204745950021251}
   objectiveParticles: {fileID: 198631065876537003}
 --- !u!54 &628940584
 Rigidbody:
@@ -511,6 +510,12 @@ PrefabInstance:
 --- !u!4 &4436899117123417 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4436899185823514, guid: ab79a37535b979f48b6de56e3a0a5cb0,
+    type: 3}
+  m_PrefabInstance: {fileID: 69716035}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &198204745950021251 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 198204746014789312, guid: ab79a37535b979f48b6de56e3a0a5cb0,
     type: 3}
   m_PrefabInstance: {fileID: 69716035}
   m_PrefabAsset: {fileID: 0}
