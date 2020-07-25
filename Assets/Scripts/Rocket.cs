@@ -79,7 +79,8 @@ public class Rocket : MonoBehaviour
 
     void permadeath()
     {
-        SceneManager.LoadScene(0);
+          SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // For testing purposes, we're reloading the current scene now! :3
+//        SceneManager.LoadScene(0);
     }
 
     void RespondToRotateInput()
