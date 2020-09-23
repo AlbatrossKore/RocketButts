@@ -20,6 +20,8 @@ public class Rocket : MonoBehaviour
     enum State {Alive, Dying, Transcending };
     State state = State.Alive;
 
+    bool collisionsDisabled = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,11 +37,24 @@ public class Rocket : MonoBehaviour
         RespondToThrustInput();
         RespondToRotateInput();
         } 
+
+        #if UNITY_EDITOR // this will make it so the debug keys are only functinoal while the game is open in the editor! 
+         if (Input.GetKeyDown(KeyCode.C))
+        {
+            collisionsDisabled = !collisionsDisabled; // not false so it toggles. 
+
+            // Call UI Element to let user know debug key has been activated
+        }
+        else if (Input.GetKeyDown(KeyCode.L))
+        {
+            LoadNextScene();
+        }      
+        #endif  
     }
 
     void OnCollisionEnter(Collision collision)
     {
-        if (state != State.Alive)
+        if (state != State.Alive || collisionsDisabled)
         {
             return;
         }
@@ -74,7 +89,7 @@ public class Rocket : MonoBehaviour
     }
     void LoadNextScene()
     {
-        SceneManager.LoadScene(1); //Todo allow for more than 2 levels
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); 
     }
 
     void permadeath()
