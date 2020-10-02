@@ -34,8 +34,8 @@ public class Rocket : MonoBehaviour
     {
         if (state == State.Alive)
         {
-        RespondToThrustInput();
-        RespondToRotateInput();
+            RespondToThrustInput();
+            RespondToRotateInput();
         } 
 
         #if UNITY_EDITOR // this will make it so the debug keys are only functinoal while the game is open in the editor! 
@@ -89,7 +89,13 @@ public class Rocket : MonoBehaviour
     }
     void LoadNextScene()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); 
+        int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
+        if(nextSceneIndex == SceneManager.sceneCountInBuildSettings)
+        {
+            nextSceneIndex = 0; // Loop back to start
+        }
+        SceneManager.LoadScene(nextSceneIndex);
+
     }
 
     void permadeath()
